@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ShoppingCart, Plus, Minus, ArrowRight } from 'lucide-react';
+import { ShoppingCart, Plus, Minus, ArrowRight, Utensils } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const API_URL = 'https://restaurant-qr-jl0w.onrender.com/api';
@@ -88,33 +88,39 @@ export default function Menu() {
 
       <div className="p-4 space-y-4">
         {menuItems.map(item => (
-          <div key={item._id} className="bg-white p-4 rounded-2xl shadow-sm flex gap-4">
-            {item.imageUrl && (
-              <img src={item.imageUrl} alt={item.name} className="w-24 h-24 object-cover rounded-xl" />
-            )}
-            <div className="flex-1 flex flex-col justify-between">
-              <div>
-                <h3 className="font-bold text-lg text-gray-800">{item.name}</h3>
-                <p className="text-sm text-gray-500 line-clamp-2">{item.description}</p>
-                <p className="text-orange-600 font-bold mt-1">${item.price.toFixed(2)}</p>
-              </div>
-              <div className="flex items-center gap-3 mt-2">
+          <div key={item._id} className="bg-white p-4 rounded-2xl shadow-sm flex gap-4 border border-gray-100">
+            <div className="flex-1">
+              <h3 className="font-bold text-lg text-gray-800">{item.name}</h3>
+              <p className="text-orange-600 font-bold mt-1">₹{item.price}</p>
+              <p className="text-sm text-gray-500 line-clamp-2 mt-2">{item.description}</p>
+            </div>
+            
+            <div className="relative flex flex-col items-center w-28">
+              {item.imageUrl ? (
+                <img src={item.imageUrl} alt={item.name} className="w-28 h-28 object-cover rounded-2xl shadow-sm" />
+              ) : (
+                <div className="w-28 h-28 bg-gray-100 rounded-2xl shadow-sm flex items-center justify-center">
+                  <Utensils className="w-8 h-8 text-gray-300" />
+                </div>
+              )}
+              
+              <div className="absolute -bottom-3 w-full flex justify-center">
                 {cart[item._id] ? (
-                  <div className="flex items-center bg-gray-100 rounded-lg">
-                    <button onClick={() => updateCart(item, -1)} className="p-2 hover:bg-gray-200 rounded-l-lg transition">
+                  <div className="flex items-center bg-white shadow-md border border-orange-100 rounded-lg text-orange-600 font-bold">
+                    <button onClick={() => updateCart(item, -1)} className="p-1.5 px-2 hover:bg-orange-50 rounded-l-lg transition">
                       <Minus className="w-4 h-4" />
                     </button>
-                    <span className="w-8 text-center font-semibold">{cart[item._id].quantity}</span>
-                    <button onClick={() => updateCart(item, 1)} className="p-2 hover:bg-gray-200 rounded-r-lg transition">
+                    <span className="w-6 text-center text-sm">{cart[item._id].quantity}</span>
+                    <button onClick={() => updateCart(item, 1)} className="p-1.5 px-2 hover:bg-orange-50 rounded-r-lg transition">
                       <Plus className="w-4 h-4" />
                     </button>
                   </div>
                 ) : (
                   <button 
                     onClick={() => updateCart(item, 1)}
-                    className="bg-orange-100 text-orange-600 px-4 py-2 rounded-lg font-semibold hover:bg-orange-200 transition text-sm"
+                    className="bg-white text-orange-600 shadow-md border border-orange-100 px-6 py-1.5 rounded-lg font-bold hover:bg-orange-50 transition text-sm uppercase tracking-wide"
                   >
-                    Add
+                    ADD
                   </button>
                 )}
               </div>
@@ -139,7 +145,7 @@ export default function Menu() {
               </div>
               <div className="text-left">
                 <p className="text-xs text-orange-100 uppercase tracking-wider font-semibold">Total ({cartItemCount} items)</p>
-                <p className="font-bold text-lg">${cartTotal.toFixed(2)}</p>
+                <p className="font-bold text-lg">₹{cartTotal}</p>
               </div>
             </div>
             <div className="flex items-center gap-2 font-bold">
