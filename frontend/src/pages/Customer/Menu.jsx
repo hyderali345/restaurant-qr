@@ -4,7 +4,7 @@ import axios from 'axios';
 import { ShoppingCart, Plus, Minus, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://restaurant-qr-jl0w.onrender.com/api';
 
 export default function Menu() {
   const { tableId } = useParams();

@@ -5,8 +5,8 @@ import toast from 'react-hot-toast';
 import { CreditCard, CheckCircle, Printer } from 'lucide-react';
 import QRCode from 'react-qr-code';
 
-const API_URL = 'http://localhost:5000/api';
-const SOCKET_URL = 'http://localhost:5000';
+const API_URL = 'https://restaurant-qr-jl0w.onrender.com/api';
+const SOCKET_URL = 'https://restaurant-qr-jl0w.onrender.com';
 
 export default function CounterDashboard() {
   const [orders, setOrders] = useState([]);

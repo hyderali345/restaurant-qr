@@ -4,8 +4,8 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import { CheckCircle, Clock, Utensils, QrCode } from 'lucide-react';
 
-const API_URL = 'http://localhost:5000/api';
-const SOCKET_URL = 'http://localhost:5000';
+const API_URL = 'https://restaurant-qr-jl0w.onrender.com/api';
+const SOCKET_URL = 'https://restaurant-qr-jl0w.onrender.com';
 
 export default function OrderStatus() {
   const { tableId, orderId } = useParams();

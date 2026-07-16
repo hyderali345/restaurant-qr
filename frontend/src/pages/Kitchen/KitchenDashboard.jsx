@@ -3,8 +3,8 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 import toast from 'react-hot-toast';
 
-const API_URL = 'http://localhost:5000/api';
-const SOCKET_URL = 'http://localhost:5000';
+const API_URL = 'https://restaurant-qr-jl0w.onrender.com/api';
+const SOCKET_URL = 'https://restaurant-qr-jl0w.onrender.com';
 
 export default function KitchenDashboard() {
   const [orders, setOrders] = useState([]);
