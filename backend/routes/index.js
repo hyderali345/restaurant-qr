@@ -63,9 +63,12 @@ router.get('/seed', async (req, res) => {
     ]);
     
     await Menu.insertMany([
-      { name: 'Margherita Pizza', description: 'Classic cheese and tomato', price: 299, category: 'Main Course', imageUrl: '/images/pizza.png', isAvailable: true },
-      { name: 'Paneer Tikka', description: 'Grilled cottage cheese', price: 249, category: 'Starters', imageUrl: '/images/paneer.png', isAvailable: true },
-      { name: 'Cold Coffee', description: 'Refreshing blended coffee', price: 149, category: 'Beverages', imageUrl: '/images/coffee.png', isAvailable: true },
+      { name: 'Chicken Mandi', description: 'Aromatic yellow rice topped with authentic roasted quarter chicken, fried onions, and nuts.', price: 450, category: 'Main Course', imageUrl: '/images/chicken_mandi.png', isAvailable: true },
+      { name: 'Mutton Juicy Mandi', description: 'Tender, slow-cooked juicy mutton pieces over fragrant basmati rice.', price: 650, category: 'Main Course', imageUrl: '/images/mutton_mandi.png', isAvailable: true },
+      { name: 'Chicken Al Faham', description: 'Arabian style smoky charcoal-grilled chicken with garlic paste and salad.', price: 320, category: 'Starters', imageUrl: '/images/chicken_faham.png', isAvailable: true },
+      { name: 'Chicken Shawarma', description: 'Juicy grilled chicken wrapped in soft pita with garlic sauce and fries.', price: 150, category: 'Starters', imageUrl: '/images/shawarma.png', isAvailable: true },
+      { name: 'Hummus with Pita', description: 'Creamy homemade hummus drizzled with olive oil, served with warm pita.', price: 180, category: 'Sides', imageUrl: '/images/hummus.png', isAvailable: true },
+      { name: 'Kunafa', description: 'Warm crispy Arabian dessert with melted sweet cheese and pistachios.', price: 250, category: 'Desserts', imageUrl: '/images/kunafa.png', isAvailable: true },
     ]);
     
     res.json({ message: 'Database seeded successfully' });
