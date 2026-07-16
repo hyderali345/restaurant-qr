@@ -31,7 +31,7 @@ export default function Welcome() {
       });
       localStorage.setItem('customerId', res.data._id);
       localStorage.setItem('customerName', res.data.name);
-      navigate(`/table/${res.data.tableId}/menu`);
+      navigate(`/table/${targetTableId}/menu`);
     } catch (err) {
       toast.error('Failed to register details. Please try again.');
     } finally {
