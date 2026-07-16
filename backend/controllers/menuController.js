@@ -1,6 +1,5 @@
 import Menu from '../models/Menu.js';
 import Table from '../models/Table.js';
-import User from '../models/User.js';
 
 export const getMenu = async (req, res) => {
   try {
@@ -26,13 +25,6 @@ export const seedDatabase = async (req, res) => {
   try {
     await Table.deleteMany({});
     await Menu.deleteMany({});
-    await User.deleteMany({});
-    
-    await User.create([
-      { name: 'Admin User', email: 'admin@restaurant.com', password: 'password123', role: 'admin' },
-      { name: 'Counter Staff', email: 'counter@restaurant.com', password: 'password123', role: 'counter' },
-      { name: 'Kitchen Staff', email: 'kitchen@restaurant.com', password: 'password123', role: 'kitchen' },
-    ]);
     
     await Table.insertMany([
       { tableNumber: 1, qrCodeUrl: 'http://localhost:5173/table/1' },
