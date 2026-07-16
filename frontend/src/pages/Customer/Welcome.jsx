@@ -103,9 +103,9 @@ export default function Welcome() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 flex justify-center"
+            className="w-full py-4 mt-6 bg-gradient-to-r from-amber-600 to-amber-500 text-white font-extrabold rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 flex justify-center tracking-wide"
           >
-            {loading ? 'Processing...' : 'View Menu'}
+            {loading ? 'Processing...' : 'VIEW MENU'}
           </button>
         </form>
       </div>
