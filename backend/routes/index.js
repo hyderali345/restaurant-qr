@@ -63,9 +63,9 @@ router.get('/seed', async (req, res) => {
     ]);
     
     await Menu.insertMany([
-      { name: 'Margherita Pizza', description: 'Classic cheese and tomato', price: 299, category: 'Main Course', imageUrl: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500', isAvailable: true },
-      { name: 'Paneer Tikka', description: 'Grilled cottage cheese', price: 249, category: 'Starters', imageUrl: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500', isAvailable: true },
-      { name: 'Cold Coffee', description: 'Refreshing blended coffee', price: 149, category: 'Beverages', imageUrl: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500', isAvailable: true },
+      { name: 'Margherita Pizza', description: 'Classic cheese and tomato', price: 299, category: 'Main Course', imageUrl: '/images/pizza.png', isAvailable: true },
+      { name: 'Paneer Tikka', description: 'Grilled cottage cheese', price: 249, category: 'Starters', imageUrl: '/images/paneer.png', isAvailable: true },
+      { name: 'Cold Coffee', description: 'Refreshing blended coffee', price: 149, category: 'Beverages', imageUrl: '/images/coffee.png', isAvailable: true },
     ]);
     
     res.json({ message: 'Database seeded successfully' });
