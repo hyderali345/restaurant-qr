@@ -1,6 +1,7 @@
 import Order from '../models/Order.js';
 import Table from '../models/Table.js';
 import mongoose from 'mongoose';
+import axios from 'axios';
 
 export const createOrder = async (req, res) => {
   try {
@@ -49,13 +50,38 @@ export const getOrderById = async (req, res) => {
 
 export const updateOrderStatus = async (req, res) => {
   try {
-    const { status } = req.body;
-    const order = await Order.findByIdAndUpdate(req.params.id, { status, updatedAt: Date.now() }, { new: true })
+    const { status, paymentStatus } = req.body;
+    let updateFields = { updatedAt: Date.now() };
+    if (status) updateFields.status = status;
+    if (paymentStatus) updateFields.paymentStatus = paymentStatus;
+
+    const order = await Order.findByIdAndUpdate(req.params.id, updateFields, { new: true })
                              .populate('items.menuItem').populate('table').populate('customer');
     
     req.io.to(`table_${order.table._id}`).emit('order_status_update', order);
     req.io.to('counter').emit('order_updated', order);
     req.io.to('kitchen').emit('order_updated', order);
+
+    // If payment is completed, send SMS via Fast2SMS
+    if (paymentStatus === 'completed' && order.customer?.phone) {
+      const message = `Al-Maida Mandi:\nThank you for ordering, ${order.customer.name}!\nYour total bill was Rs.${order.totalAmount}.`;
+      try {
+        await axios.post('https://www.fast2sms.com/dev/bulkV2', {
+          route: 'q',
+          message: message,
+          language: 'english',
+          flash: 0,
+          numbers: order.customer.phone.replace(/\D/g, '').slice(-10)
+        }, {
+          headers: {
+            'authorization': process.env.FAST2SMS_API_KEY || 'dummy_key'
+          }
+        });
+        console.log('SMS sent to', order.customer.phone);
+      } catch (smsError) {
+        console.error('Fast2SMS Error:', smsError.response?.data || smsError.message);
+      }
+    }
 
     res.json(order);
   } catch (err) {

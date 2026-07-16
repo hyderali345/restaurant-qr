@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 export const registerCustomer = async (req, res) => {
   try {
-    let { name, email, phone, tableId } = req.body;
+    let { name, phone, tableId } = req.body;
     let actualTableId = tableId;
 
     if (!mongoose.Types.ObjectId.isValid(tableId)) {
@@ -15,7 +15,7 @@ export const registerCustomer = async (req, res) => {
       actualTableId = table._id;
     }
 
-    const customer = new Customer({ name, email, phone, tableId: actualTableId });
+    const customer = new Customer({ name, phone, tableId: actualTableId });
     await customer.save();
     res.status(201).json({ ...customer.toObject(), tableId: actualTableId });
   } catch (err) {
