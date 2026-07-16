@@ -6,6 +6,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import apiRoutes from './routes/index.js';
 import authRoutes from './routes/authRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/payments', paymentRoutes);
 app.use('/api', apiRoutes);
 
 // Socket.io connection
