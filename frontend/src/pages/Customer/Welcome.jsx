@@ -22,7 +22,7 @@ export default function Welcome() {
       toast.error('Please provide a Table ID (or scan QR)');
       return;
     }
-    
+
     setLoading(true);
     try {
       const res = await axios.post(`${API_URL}/customers`, {
@@ -40,26 +40,26 @@ export default function Welcome() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 via-black to-black p-4">
-      <div className="bg-gray-900/60 backdrop-blur-xl border border-gray-800 p-8 rounded-[2rem] shadow-2xl w-full max-w-md transform transition-all">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-orange-400 to-red-500 p-4">
+      <div className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl w-full max-w-md transform transition-all">
         <div className="flex justify-center mb-6">
-          <div className="bg-amber-500/20 p-4 rounded-full border border-amber-500/30 shadow-[0_0_15px_rgba(245,158,11,0.2)]">
-            <Utensils className="w-12 h-12 text-amber-500" />
+          <div className="bg-orange-100 p-4 rounded-full">
+            <Utensils className="w-12 h-12 text-orange-600" />
           </div>
         </div>
-        <h1 className="text-3xl font-extrabold text-center text-white mb-2 tracking-wide">Al-Maida Mandi</h1>
-        <p className="text-center text-gray-400 mb-8 font-light">
+        <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-2">Welcome!</h1>
+        <p className="text-center text-gray-500 mb-8">
           {tableId ? `You are seated at Table ${tableId}` : 'Please enter your Table ID to continue'}
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {!tableId && (
             <div>
-              <label className="block text-sm font-medium text-gray-400 mb-1">Table Number (Simulate QR Scan)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Table Number (Simulate QR Scan)</label>
               <input
                 type="text"
                 required
-                className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-600 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all outline-none"
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all outline-none"
                 placeholder="e.g., 64d9f..."
                 value={manualTableId}
                 onChange={(e) => setManualTableId(e.target.value)}
@@ -67,33 +67,33 @@ export default function Welcome() {
             </div>
           )}
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">Full Name</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
             <input
               type="text"
               required
-              className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-600 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all outline-none"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all outline-none"
               placeholder="John Doe"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">Email</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
             <input
               type="email"
               required
-              className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-600 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all outline-none"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all outline-none"
               placeholder="john@example.com"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-400 mb-1">Phone Number</label>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
             <input
               type="tel"
               required
-              className="w-full px-4 py-3 rounded-xl bg-gray-800/50 border border-gray-700 text-white placeholder-gray-600 focus:border-amber-500 focus:ring-2 focus:ring-amber-500/50 transition-all outline-none"
+              className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 transition-all outline-none"
               placeholder="+1 234 567 890"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
@@ -103,9 +103,9 @@ export default function Welcome() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-4 mt-6 bg-gradient-to-r from-amber-600 to-amber-500 text-white font-extrabold rounded-xl shadow-[0_0_20px_rgba(245,158,11,0.3)] hover:shadow-[0_0_25px_rgba(245,158,11,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 flex justify-center tracking-wide"
+            className="w-full py-4 mt-6 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-xl shadow-lg hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-70 flex justify-center"
           >
-            {loading ? 'Processing...' : 'VIEW MENU'}
+            {loading ? 'Processing...' : 'View Menu'}
           </button>
         </form>
       </div>

@@ -10,7 +10,7 @@ const SOCKET_URL = 'https://restaurant-qr-jl0w.onrender.com';
 export default function OrderStatus() {
   const { tableId, orderId } = useParams();
   const [order, setOrder] = useState(null);
-  
+
   useEffect(() => {
     // Fetch initial order data
     const fetchOrder = async () => {
@@ -41,54 +41,54 @@ export default function OrderStatus() {
   }
 
   const getStatusDisplay = () => {
-    switch(order.status) {
-      case 'pending': return { icon: <Clock className="w-16 h-16 text-yellow-500"/>, text: 'Order Sent to Kitchen', color: 'text-yellow-500', bg: 'bg-gray-900 border-yellow-500/20', iconBg: 'bg-yellow-500/10 border-yellow-500/20' };
-      case 'preparing': return { icon: <Utensils className="w-16 h-16 text-amber-500"/>, text: 'Food is Being Prepared', color: 'text-amber-500', bg: 'bg-gray-900 border-amber-500/20', iconBg: 'bg-amber-500/10 border-amber-500/20' };
-      case 'ready': return { icon: <CheckCircle className="w-16 h-16 text-green-500"/>, text: 'Food is Ready! On the way!', color: 'text-green-500', bg: 'bg-gray-900 border-green-500/20', iconBg: 'bg-green-500/10 border-green-500/20' };
-      default: return { icon: <CheckCircle className="w-16 h-16 text-gray-500"/>, text: order.status, color: 'text-gray-400', bg: 'bg-gray-900 border-gray-800', iconBg: 'bg-gray-800 border-gray-700' };
+    switch (order.status) {
+      case 'pending': return { icon: <Clock className="w-16 h-16 text-yellow-500" />, text: 'Order Sent to Kitchen', color: 'text-yellow-600', bg: 'bg-yellow-50' };
+      case 'preparing': return { icon: <Utensils className="w-16 h-16 text-orange-500" />, text: 'Food is Being Prepared', color: 'text-orange-600', bg: 'bg-orange-50' };
+      case 'ready': return { icon: <CheckCircle className="w-16 h-16 text-green-500" />, text: 'Food is Ready! On the way!', color: 'text-green-600', bg: 'bg-green-50' };
+      default: return { icon: <CheckCircle className="w-16 h-16 text-gray-500" />, text: order.status, color: 'text-gray-600', bg: 'bg-gray-50' };
     }
   };
 
   const status = getStatusDisplay();
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex flex-col text-gray-200">
-      <div className={`${status.bg} border-b p-10 flex flex-col items-center justify-center transition-colors duration-500`}>
-        <div className={`${status.iconBg} p-5 rounded-full border shadow-lg mb-6 animate-bounce`}>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className={`${status.bg} p-8 flex flex-col items-center justify-center transition-colors duration-500`}>
+        <div className="bg-white p-4 rounded-full shadow-sm mb-4 animate-bounce">
           {status.icon}
         </div>
-        <h2 className={`text-2xl font-extrabold ${status.color} text-center tracking-wide`}>{status.text}</h2>
-        <p className="text-gray-400 mt-2 text-center font-medium">Order #{orderId.slice(-6).toUpperCase()}</p>
+        <h2 className={`text-2xl font-bold ${status.color} text-center`}>{status.text}</h2>
+        <p className="text-gray-500 mt-2 text-center">Order #{orderId.slice(-6).toUpperCase()}</p>
       </div>
 
-      <div className="flex-1 p-4 -mt-6">
-        <div className="bg-gray-900 border border-gray-800 rounded-[2rem] shadow-2xl p-6 space-y-4 relative z-10">
-          <h3 className="font-extrabold text-xl border-b border-gray-800 pb-4 text-white">Order Details</h3>
+      <div className="flex-1 p-4 -mt-4">
+        <div className="bg-white rounded-2xl shadow-sm p-4 space-y-4 relative z-10">
+          <h3 className="font-bold text-lg border-b pb-2">Order Details</h3>
           {order.items.map((item, index) => (
-            <div key={index} className="flex justify-between text-gray-300 font-medium">
-              <span><span className="text-amber-500 mr-2">{item.quantity}x</span> {item.menuItem?.name || 'Item'}</span>
-              <span>₹{item.price * item.quantity}</span>
+            <div key={index} className="flex justify-between text-gray-700">
+              <span>{item.quantity}x {item.menuItem?.name || 'Item'}</span>
+              <span>${(item.price * item.quantity).toFixed(2)}</span>
             </div>
           ))}
-          <div className="border-t border-gray-800 pt-4 flex justify-between font-extrabold text-xl text-white">
+          <div className="border-t pt-2 flex justify-between font-bold text-lg">
             <span>Total</span>
-            <span className="text-amber-500">₹{order.totalAmount}</span>
+            <span className="text-orange-600">${order.totalAmount.toFixed(2)}</span>
           </div>
         </div>
 
         {/* Payment QR Section */}
         {order.status === 'ready' && order.paymentStatus === 'pending' && (
-          <div className="mt-6 bg-gray-900 border border-amber-500/30 rounded-[2rem] shadow-[0_0_20px_rgba(245,158,11,0.15)] p-8 text-center">
-            <h3 className="font-extrabold text-2xl text-white mb-2">Pay via UPI</h3>
-            <p className="text-gray-400 text-sm mb-6">Scan with any UPI app to pay</p>
-            
-            <div className="bg-white p-4 rounded-3xl inline-block mb-6 shadow-xl border-4 border-amber-100">
-              {/* Dummy QR Code */}
-              <QrCode className="w-40 h-40 text-gray-900" />
+          <div className="mt-6 bg-white rounded-2xl shadow-sm p-6 text-center border border-orange-100">
+            <h3 className="font-bold text-xl text-gray-800 mb-2">Pay via UPI</h3>
+            <p className="text-gray-500 text-sm mb-6">Scan with any UPI app to pay</p>
+
+            <div className="bg-gray-100 p-4 rounded-2xl inline-block mb-4">
+              {/* Dummy QR Code using an icon for UI purpose, in real app this would be a real image */}
+              <QrCode className="w-32 h-32 text-gray-800" />
             </div>
-            
-            <p className="font-extrabold text-2xl text-amber-500">₹{order.totalAmount}</p>
-            <p className="text-xs text-gray-500 mt-6 bg-gray-800/50 p-3 rounded-xl border border-gray-700">Show the payment screen at the counter when leaving to collect your bill.</p>
+
+            <p className="font-semibold text-lg text-gray-700">Amount: ${order.totalAmount.toFixed(2)}</p>
+            <p className="text-xs text-gray-400 mt-4">Show the payment screen at the counter when leaving to collect your bill.</p>
           </div>
         )}
       </div>
