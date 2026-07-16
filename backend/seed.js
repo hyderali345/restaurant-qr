@@ -5,7 +5,7 @@ import Menu from './models/Menu.js';
 
 dotenv.config();
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/restaurant';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://hyderali:mongodbhyder@cluster0.ikth8av.mongodb.net/restaurant?appName=Cluster0';
 
 async function seed() {
   try {

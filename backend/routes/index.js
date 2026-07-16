@@ -48,6 +48,33 @@ router.post('/menu', async (req, res) => {
   }
 });
 
+// Helper endpoint to seed database on the cloud
+router.get('/seed', async (req, res) => {
+  try {
+    const tableCount = await Table.countDocuments();
+    if (tableCount === 0) {
+      await Table.insertMany([
+        { tableNumber: 1, qrCodeUrl: 'http://localhost:5173/table/1' },
+        { tableNumber: 2, qrCodeUrl: 'http://localhost:5173/table/2' },
+        { tableNumber: 3, qrCodeUrl: 'http://localhost:5173/table/3' },
+        { tableNumber: 4, qrCodeUrl: 'http://localhost:5173/table/4' },
+        { tableNumber: 5, qrCodeUrl: 'http://localhost:5173/table/5' },
+      ]);
+    }
+    const menuCount = await Menu.countDocuments();
+    if (menuCount === 0) {
+      await Menu.insertMany([
+        { name: 'Margherita Pizza', description: 'Classic cheese and tomato', price: 299, category: 'Main Course', image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500', isAvailable: true },
+        { name: 'Paneer Tikka', description: 'Grilled cottage cheese', price: 249, category: 'Starters', image: 'https://images.unsplash.com/photo-1567188040759-fb8a883dc6d8?w=500', isAvailable: true },
+        { name: 'Cold Coffee', description: 'Refreshing blended coffee', price: 149, category: 'Beverages', image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=500', isAvailable: true },
+      ]);
+    }
+    res.json({ message: 'Database seeded successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // --- Customer Routes ---
 router.post('/customers', async (req, res) => {
   try {
